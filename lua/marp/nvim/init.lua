@@ -1,7 +1,7 @@
 local M = {}
 
 M.jobid = 0
-function M.ServerStart()
+function M.ServerStart(theme)
   if M.jobid ~= 0 then
     -- kill running jobs
     vim.fn.jobstop(M.jobid)
@@ -12,7 +12,7 @@ function M.ServerStart()
     port = "8080"
   end
   print('marp: started server on http://localhost:' .. port)
-  M.jobid = vim.fn.jobstart({"marp", "--server", vim.fn.getcwd()}, {
+  M.jobid = vim.fn.jobstart({"marp", "--server", "--allow-local-files", "--theme " ..theme, "--html true", vim.fn.getcwd()}, {
     on_exit = function(_, code)
       M.jobid = 0
       if code ~= 143 then print('marp: exit', code) end
