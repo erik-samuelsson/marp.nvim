@@ -15,7 +15,7 @@ function M.ServerStart()
     port = "8080"
   end
   print('marp: started server on http://localhost:' .. port)
-  M.jobid = vim.fn.jobstart({"marp", "--server", "--allow-local-files", "--theme", theme,  vim.fn.getcwd()}, {
+  M.jobid = vim.fn.jobstart({"marp", "--server", "--allow-local-files", vim.fn.getcwd()}, {
     on_exit = function(_, code)
       M.jobid = 0
       if code ~= 143 then print('marp: exit', code) end
