@@ -9,11 +9,13 @@ function M.ServerStart()
   end
   local port = os.getenv("PORT")
   local theme = os.getenv("THEME")
+  local theme_param = "--theme " ..theme
+  print(theme_param)
   if port == nil then
     port = "8080"
   end
   print('marp: started server on http://localhost:' .. port)
-  M.jobid = vim.fn.jobstart({"marp", "--server", "--allow-local-files", "--theme " ..theme, "--html true", vim.fn.getcwd()}, {
+  M.jobid = vim.fn.jobstart({"marp", "--server", "--allow-local-files", theme_param, vim.fn.getcwd()}, {
     on_exit = function(_, code)
       M.jobid = 0
       if code ~= 143 then print('marp: exit', code) end
