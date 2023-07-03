@@ -1,13 +1,14 @@
 local M = {}
 
 M.jobid = 0
-function M.ServerStart(theme)
+function M.ServerStart()
   if M.jobid ~= 0 then
     -- kill running jobs
     vim.fn.jobstop(M.jobid)
     return
   end
   local port = os.getenv("PORT")
+  local theme = os.getenv("THEME")
   if port == nil then
     port = "8080"
   end
